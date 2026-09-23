@@ -250,6 +250,28 @@ def test_dependency_map_with_stub():
 # CLI smoke tests
 # ---------------------------------------------------------------------------
 
+def test_cli_modules_import_without_flash_attn():
+    """CPU-only installs can inspect and test the public modules."""
+    code = """
+import builtins
+real_import = builtins.__import__
+def blocked_import(name, *args, **kwargs):
+    if name == "flash_attn" or name.startswith("flash_attn."):
+        raise ImportError("flash-attn intentionally unavailable")
+    return real_import(name, *args, **kwargs)
+builtins.__import__ = blocked_import
+import albatross.training
+import albatross.dependency_map
+"""
+    result = subprocess.run(
+        [sys.executable, "-c", code],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+
+
 @pytest.mark.parametrize(
     "module",
     [

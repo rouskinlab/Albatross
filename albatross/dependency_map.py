@@ -19,8 +19,6 @@ from torch.utils.data import DataLoader, Dataset
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from rinalmo.pretrained import get_pretrained_model
-
 try:
     from albatross.training import IRESPretrainingWrapper
 
@@ -87,6 +85,10 @@ def load_model_and_alphabet(checkpoint_path=None, model_name="giga-v1", device="
         print("Successfully loaded model from checkpoint")
     else:
         print(f"Loading pretrained model: {model_name}")
+        # Imported only when inference is requested; this keeps the lightweight
+        # filtering/metrics tools and CLI help usable without flash-attn.
+        from rinalmo.pretrained import get_pretrained_model
+
         model, alphabet = get_pretrained_model(model_name=model_name)
 
     model = model.to(device=device)
@@ -122,7 +124,10 @@ def compute_dependency_map(
     print(f"Running inference on {len(data_loader)} batches...")
     output_arrays = []
     for batch_tokens in data_loader:
-        with torch.no_grad(), torch.cuda.amp.autocast():
+        use_cuda_amp = str(device).startswith("cuda") and torch.cuda.is_available()
+        with torch.no_grad(), torch.autocast(
+            device_type="cuda", enabled=use_cuda_amp
+        ):
             outputs = model(batch_tokens)["logits"].cpu().to(torch.float32)
         output_probs = torch.nn.functional.softmax(outputs, dim=-1)[:, :, ACGU_IDXS]
         output_arrays.append(output_probs)

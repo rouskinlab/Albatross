@@ -28,7 +28,6 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from rinalmo.config import model_config
-from rinalmo.model.model import RiNALMo
 from rinalmo.data.alphabet import Alphabet
 from rinalmo.data.constants import MASK_TKN, PAD_TKN, CLS_TKN, EOS_TKN
 
@@ -159,6 +158,10 @@ class IRESPretrainingWrapper(pl.LightningModule):
     ):
         super().__init__()
         self.save_hyperparameters()
+
+        # Import here so CPU-only users can run the data, filtering, metric,
+        # and CLI tests without installing the CUDA-only flash-attn package.
+        from rinalmo.model.model import RiNALMo
 
         self.model = RiNALMo(model_config(lm_config))
 

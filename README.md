@@ -30,18 +30,33 @@ Each file maps to a STAR Methods section of the manuscript.
 
 ## Installation
 
+For filtering, Blossom matching, metrics, CLI inspection, and tests, a GPU is
+not required:
+
 ```bash
-# Create environment (adjust CUDA as needed)
+git clone https://github.com/rouskinlab/Albatross.git
+cd Albatross
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
+pytest -q
+```
+
+Training and dependency-map inference use the 650M-parameter RiNALMo giga
+model and require a Linux NVIDIA CUDA environment with `flash-attn`:
+
+```bash
 conda env create -f environment.yml
 conda activate albatross
 
-# Or: install PyTorch first, then
-pip install -r requirements.txt
-pip install flash-attn==2.3.2 --no-build-isolation
-pip install -e .
+# If flash-attn was not built successfully during environment creation:
+python -m pip install flash-attn==2.3.2 --no-build-isolation
+python -m pip install -e .
 ```
 
-`flash-attn` is required by the RiNALMo giga architecture.
+No repository path is hard-coded. Commands may be run from any clone location
+after the package is installed.
 
 ## Quick start
 
@@ -113,6 +128,11 @@ pytest -q
 ```
 
 Tests cover masking, filtering, Blossom/pseudoknot removal, metrics, and CLI entry points. They do not require a GPU or model weights.
+
+The release is also tested by building a wheel from a fresh clone, installing
+it into a new virtual environment, running every CLI from outside the source
+tree, and completing a synthetic dependency-map filtering → Blossom → F1
+round trip.
 
 ## Citation
 
