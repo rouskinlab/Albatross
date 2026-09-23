@@ -40,8 +40,9 @@ plots/
 *.npz
 !tests/fixtures/*.npz
 
-# Data (not shipped; see README)
-data/
+# Top-level data directories (not shipped; see README)
+# Use /data/ so rinalmo/data/ (tokenizer) remains tracked.
+/data/
 *.fasta
 *.fa
 *.fastq
