@@ -1,0 +1,22 @@
+name: albatross
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.10,<3.13
+  - pytorch>=2.0
+  - pytorch-cuda=11.8
+  - numpy>=1.23
+  - pandas>=2.0
+  - networkx>=3.0
+  - einops>=0.7
+  - pip
+  - pip:
+      - ml-collections>=0.1.1
+      - gdown>=5.1.0
+      - lightning>=2.0.0
+      - packaging>=23.2
+      - flash-attn==2.3.2
+      - -e .

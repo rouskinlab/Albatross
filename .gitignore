@@ -1,0 +1,56 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / editor
+.idea/
+.vscode/
+.cursor/
+*.swp
+.DS_Store
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Large model artifacts (download separately)
+weights/
+*.pt
+*.ckpt
+*.pth
+
+# Generated outputs
+outputs/
+results/
+plots/
+*.npz
+!tests/fixtures/*.npz
+
+# Data (not shipped; see README)
+data/
+*.fasta
+*.fa
+*.fastq
+
+# Logs
+*.log
+wandb/
+lightning_logs/
+
+# Notebooks / local scratch
+*.ipynb
+.ipynb_checkpoints/

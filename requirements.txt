@@ -1,0 +1,17 @@
+# Core runtime dependencies for Albatross.
+# Install PyTorch separately for your CUDA / CPU platform:
+#   https://pytorch.org/get-started/locally/
+#
+# flash-attn is required by the RiNALMo giga architecture and must be built
+# against the installed torch/CUDA versions:
+#   pip install flash-attn==2.3.2 --no-build-isolation
+
+numpy>=1.23.5
+pandas>=2.0.0
+networkx>=3.0
+einops>=0.7.0
+ml-collections>=0.1.1
+packaging>=23.2
+gdown>=5.1.0
+lightning>=2.0.0
+tqdm>=4.66.0

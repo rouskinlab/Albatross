@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use Albatross, please cite the accompanying manuscript."
+title: "Albatross"
+authors:
+  - family-names: Schyla
+  - family-names: Bongrand
+  - name: "Rouskin Lab"
+url: "https://albatrossrna.org/"
+repository-code: "https://github.com/rouskinlab/Albatross"
+license: Apache-2.0

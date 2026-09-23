@@ -1,0 +1,13 @@
+Albatross
+Copyright 2025 Rouskin Lab, Harvard Medical School
+
+This project includes code derived from RiNALMo
+(https://github.com/lbcb-sci/RiNALMo), Copyright 2024 Šikić Lab,
+licensed under the Apache License, Version 2.0.
+
+RiNALMo model parameters are distributed under CC BY 4.0.
+
+Albatross additions (training, dependency-map generation, binary filtering,
+Blossom matching, and evaluation metrics) are Copyright 2025 Rouskin Lab
+and are released under the Apache License, Version 2.0.
+See the LICENSE file for the full license text.
